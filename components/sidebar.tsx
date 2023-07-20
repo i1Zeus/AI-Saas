@@ -5,7 +5,15 @@ import Link from "next/link";
 import { Montserrat } from "next/font/google";
 
 import { cn } from "@/lib/utils";
-import { LayoutDashboard } from "lucide-react";
+import {
+  Code,
+  ImageIcon,
+  LayoutDashboard,
+  MessageSquare,
+  Music,
+  Settings,
+  VideoIcon,
+} from "lucide-react";
 
 const montserrat = Montserrat({
   weight: "600",
@@ -18,6 +26,41 @@ const routes = [
     icon: LayoutDashboard,
     href: "/dashboard",
     color: "text-sky-500",
+  },
+  {
+    label: "Conversion",
+    icon: MessageSquare,
+    href: "/conversion",
+    color: "text-violet-500",
+  },
+  {
+    label: "Image Generator",
+    icon: ImageIcon,
+    href: "/image",
+    color: "text-pink-500",
+  },
+  {
+    label: "Video Generator",
+    icon: VideoIcon,
+    href: "/video",
+    color: "text-orange-500",
+  },
+  {
+    label: "Music Generator",
+    icon: Music,
+    href: "/music",
+    color: "text-emerald-500",
+  },
+  {
+    label: "Code Generator",
+    icon: Code,
+    href: "/code",
+    color: "text-green-700",
+  },
+  {
+    label: "Settings",
+    icon: Settings,
+    href: "/settings",
   },
 ];
 
@@ -40,7 +83,7 @@ const Sidebar = () => {
               key={route.href}
               className="text-sm group flex p-3 w-full justify-start cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition"
             >
-              <div className="flex items-center flex-1 ">
+              <div className="flex items-center flex-1 gap-2">
                 <route.icon className={(cn("h-5 w-5 mr-3"), route.color)} />
                 {route.label}
               </div>
