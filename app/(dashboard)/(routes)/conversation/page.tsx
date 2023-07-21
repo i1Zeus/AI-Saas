@@ -8,18 +8,18 @@ import { useRouter } from "next/navigation";
 import { MessageSquare } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChatCompletionRequestMessage } from "openai";
-import { cn } from "@/lib/utils";
 
+import { cn } from "@/lib/utils";
 import Heading from "@/components/heading";
 import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { BotAvatar } from "@/components/bot-avater";
+import { UserAvatar } from "@/components/user-avater";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 
 import { formSchema } from "./constants";
-import { UserAvatar } from "@/components/user-avater";
-import { BotAvatar } from "@/components/bot-avater";
 
 const ConversationPage = () => {
   const router = useRouter();
