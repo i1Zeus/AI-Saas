@@ -8,15 +8,16 @@ import { useRouter } from "next/navigation";
 import { MessageSquare } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChatCompletionRequestMessage } from "openai";
+import { cn } from "@/lib/utils";
 
 import Heading from "@/components/heading";
 import { Empty } from "@/components/empty";
+import { Loader } from "@/components/loader";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 
 import { formSchema } from "./constants";
-import { Loader } from "@/components/loader";
 
 const ConversationPage = () => {
   const router = useRouter();
@@ -114,7 +115,17 @@ const ConversationPage = () => {
         )}
         <div className="flex flex-col-reverse gap-y-4">
           {messages.map((message) => (
-            <div key={message.content}>{message.content}</div>
+            <div
+              key={message.content}
+              className={cn(
+                "p-8 w-full flex items-start gap-x-8 rounded-lg",
+                message.role === "user"
+                  ? "bg-white border border-black/10"
+                  : "bg-muted"
+              )}
+            >
+              {message.content}
+            </div>
           ))}
         </div>
       </div>
