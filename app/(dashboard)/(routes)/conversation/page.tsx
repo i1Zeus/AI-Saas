@@ -18,6 +18,8 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 
 import { formSchema } from "./constants";
+import { UserAvatar } from "@/components/user-avater";
+import { BotAvatar } from "@/components/bot-avater";
 
 const ConversationPage = () => {
   const router = useRouter();
@@ -124,6 +126,7 @@ const ConversationPage = () => {
                   : "bg-muted"
               )}
             >
+              {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
               {message.content}
             </div>
           ))}
