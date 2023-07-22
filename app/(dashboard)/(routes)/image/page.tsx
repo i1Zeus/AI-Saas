@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { ImageIcon } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChatCompletionRequestMessage } from "openai";
 
 import { cn } from "@/lib/utils";
 import Heading from "@/components/heading";
@@ -15,20 +14,27 @@ import { Empty } from "@/components/empty";
 import { Loader } from "@/components/loader";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { BotAvatar } from "@/components/bot-avater";
-import { UserAvatar } from "@/components/user-avater";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import {
+  SelectValue,
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
 
-import { formSchema } from "./constants";
+import { amountOptions, formSchema, resolutionOptions } from "./constants";
 
 const ImagePage = () => {
   const router = useRouter();
-  const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
+  const [images, setImages] = useState<string[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       prompt: "",
+      amount: "1",
+      resolution: "512x512",
     },
   });
 
@@ -36,17 +42,15 @@ const ImagePage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: ChatCompletionRequestMessage = {
-        role: "user",
-        content: values.prompt,
-      };
-      const newMessages = [...messages, userMessage];
+      setImages([]);
 
-      const response = await axios.post("/api/image", {
-        messages: newMessages,
-      });
-      setMessages((current) => [...current, userMessage, response.data]);
+      const response = await axios.post("/api/image", values);
 
+      const urls = response.data.images.map(
+        (image: { url: string }) => image.url
+      );
+
+      setImages(urls);
       form.reset();
     } catch (error: any) {
       console.log(error);
@@ -60,7 +64,7 @@ const ImagePage = () => {
     <div>
       <Heading
         title="Image Generator"
-        sub="Our most advanced image generating system yet."
+        sub="Turn your text into an image."
         icon={ImageIcon}
         iconColor="text-pink-500"
         bgColor="bg-pink-500/10"
@@ -90,10 +94,64 @@ const ImagePage = () => {
                     <Input
                       className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                       disabled={isLoading}
-                      placeholder="How fast does a elephant run?"
+                      placeholder="A picture of a monkey riding a bike"
                       {...field}
                     />
                   </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="amount"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="col-span-12 lg:col-span-2">
+                  <Select
+                    disabled={isLoading}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue defaultValue={field.value} />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {amountOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="resolution"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem className="col-span-12 lg:col-span-2">
+                  <Select
+                    disabled={isLoading}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue defaultValue={field.value} />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {resolutionOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </FormItem>
               )}
             />
@@ -108,29 +166,14 @@ const ImagePage = () => {
       </div>
       <div className="space-y-4 mt-4 p-4">
         {isLoading && (
-          <div className="p-8 w-full rounded-lg flex items-center justify-center bg-muted">
+          <div className="p-20">
             <Loader />
           </div>
         )}
-        {messages.length === 0 && !isLoading && (
-          <Empty label="No image generated yet." />
+        {images.length === 0 && !isLoading && (
+          <Empty label="No images generated." />
         )}
-        <div className="flex flex-col-reverse gap-y-4">
-          {messages.map((message) => (
-            <div
-              key={message.content}
-              className={cn(
-                "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                message.role === "user"
-                  ? "bg-white border border-black/10"
-                  : "bg-muted"
-              )}
-            >
-              {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-              {message.content}
-            </div>
-          ))}
-        </div>
+        <div>Images here</div>
       </div>
     </div>
   );
