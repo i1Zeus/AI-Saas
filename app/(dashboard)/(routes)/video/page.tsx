@@ -3,25 +3,25 @@
 import * as z from "zod";
 import axios from "axios";
 import { useState } from "react";
-import { VideoIcon } from "lucide-react";
-import { toast } from "react-hot-toast";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
+import { VideoIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-import { Loader } from "@/components/loader";
-import { Input } from "@/components/ui/input";
-import { Empty } from "@/components/ui/empty";
 import { Heading } from "@/components/heading";
 import { Button } from "@/components/ui/button";
-// import { useProModal } from "@/hooks/use-pro-modal";
+import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { Loader } from "@/components/loader";
+import { Empty } from "@/components/ui/empty";
+// import { useProModal } from "@/hooks/use-pro-modal";
 
 import { formSchema } from "./constants";
 
 const VideoPage = () => {
-  // const proModal = useProModal();
   const router = useRouter();
+  // const proModal = useProModal();
   const [video, setVideo] = useState<string>();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -38,9 +38,8 @@ const VideoPage = () => {
       setVideo(undefined);
 
       const response = await axios.post("/api/video", values);
-      console.log(response);
 
-      setVideo(response.data.audio);
+      setVideo(response.data[0]);
       form.reset();
     } catch (error: any) {
       if (error?.response?.status === 403) {
@@ -87,7 +86,7 @@ const VideoPage = () => {
                     <Input
                       className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                       disabled={isLoading}
-                      placeholder="Astronaut in the ocean."
+                      placeholder="Astronaut in the ocean"
                       {...field}
                     />
                   </FormControl>
@@ -109,7 +108,7 @@ const VideoPage = () => {
             <Loader />
           </div>
         )}
-        {!video && !isLoading && <Empty label="No video generated." />}
+        {!video && !isLoading && <Empty label="No video files generated." />}
         {video && (
           <video
             controls
