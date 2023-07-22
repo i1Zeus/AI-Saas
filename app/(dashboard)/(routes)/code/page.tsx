@@ -12,7 +12,7 @@ import { ChatCompletionRequestMessage } from "openai";
 
 import { cn } from "@/lib/utils";
 import Heading from "@/components/heading";
-import { Empty } from "@/components/empty";
+import { Empty } from "@/components/ui/empty";
 import { Loader } from "@/components/loader";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
