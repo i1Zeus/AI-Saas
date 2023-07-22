@@ -5,12 +5,13 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { ImageIcon } from "lucide-react";
+import { Download, ImageIcon } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { cn } from "@/lib/utils";
 import Heading from "@/components/heading";
 import { Empty } from "@/components/empty";
+import { Card, CardFooter } from "@/components/ui/card";
 import { Loader } from "@/components/loader";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -24,6 +25,7 @@ import {
 } from "@/components/ui/select";
 
 import { amountOptions, formSchema, resolutionOptions } from "./constants";
+import Image from "next/image";
 
 const ImagePage = () => {
   const router = useRouter();
@@ -174,7 +176,24 @@ const ImagePage = () => {
         {images.length === 0 && !isLoading && (
           <Empty label="No images generated." />
         )}
-        <div>Images here</div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-4 mt-8">
+          {images.map((src) => (
+            <Card key={src} className="rounded-lg overflow-hidden">
+              <div className="relative aspect-square">
+                <Image fill alt="Generated Image" src={src} />
+              </div>
+              <CardFooter className="p-2">
+                <Button
+                  variant="secondary"
+                  className="w-full"
+                  onClick={() => window.open(src, "_blank")}
+                >
+                  <Download className="h-4 w-4 m-2" />
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );
