@@ -69,7 +69,7 @@ const ImagePage = () => {
         iconColor="text-pink-500"
         bgColor="bg-pink-500/10"
       />
-      <div className="px-4 lg:px-8 ">
+      <div className="px-4 lg:px-8">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -158,6 +158,7 @@ const ImagePage = () => {
             <Button
               className="col-span-12 lg:col-span-2 w-full"
               disabled={isLoading}
+              type="submit"
             >
               {isLoading ? "Generating..." : "Generate"}
             </Button>
