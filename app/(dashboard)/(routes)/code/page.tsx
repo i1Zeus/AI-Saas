@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ChatCompletionRequestMessage } from "openai";
 
 import { cn } from "@/lib/utils";
-import Heading from "@/components/heading";
+import { Heading } from "@/components/heading";
 import { Empty } from "@/components/ui/empty";
 import { Loader } from "@/components/loader";
 import { Input } from "@/components/ui/input";
