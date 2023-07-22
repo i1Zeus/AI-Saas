@@ -3,9 +3,10 @@
 import * as z from "zod";
 import axios from "axios";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { Code } from "lucide-react";
+import { useForm } from "react-hook-form";
+import ReactMarkdown from "react-markdown";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChatCompletionRequestMessage } from "openai";
 
@@ -62,8 +63,8 @@ const CodePage = () => {
         title="Code"
         sub="Our most advanced code generate system yet."
         icon={Code}
-        iconColor="text-violet-500"
-        bgColor="bg-violet-500/10"
+        iconColor="text-green-700"
+        bgColor="bg-green-700/10"
       />
       <div className="px-4 lg:px-8 ">
         <Form {...form}>
@@ -127,7 +128,21 @@ const CodePage = () => {
               )}
             >
               {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-              {message.content}
+              <ReactMarkdown
+                components={{
+                  pre: ({ node, ...props }) => (
+                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg">
+                      <pre {...props} />
+                    </div>
+                  ),
+                  code: ({ node, ...props }) => (
+                    <code className="bg-black/10 rounded-lg p-1" {...props} />
+                  ),
+                }}
+                className="text-sm overflow-hidden leading-7"
+              >
+                {message.content || ""}
+              </ReactMarkdown>
             </div>
           ))}
         </div>
