@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { MessageSquare } from "lucide-react";
+import { Code } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChatCompletionRequestMessage } from "openai";
 
@@ -21,7 +21,7 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 
 import { formSchema } from "./constants";
 
-const ConversationPage = () => {
+const CodePage = () => {
   const router = useRouter();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
 
@@ -42,7 +42,7 @@ const ConversationPage = () => {
       };
       const newMessages = [...messages, userMessage];
 
-      const response = await axios.post("/api/conversation", {
+      const response = await axios.post("/api/code", {
         messages: newMessages,
       });
       setMessages((current) => [...current, userMessage, response.data]);
@@ -59,9 +59,9 @@ const ConversationPage = () => {
   return (
     <div>
       <Heading
-        title="Conversation"
-        sub="Our most advanced chat system yet."
-        icon={MessageSquare}
+        title="Code"
+        sub="Our most advanced code generate system yet."
+        icon={Code}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
       />
@@ -90,7 +90,7 @@ const ConversationPage = () => {
                     <Input
                       className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                       disabled={isLoading}
-                      placeholder="How fast does a elephant run?"
+                      placeholder="How to center a div?"
                       {...field}
                     />
                   </FormControl>
@@ -136,4 +136,4 @@ const ConversationPage = () => {
   );
 };
 
-export default ConversationPage;
+export default CodePage;
