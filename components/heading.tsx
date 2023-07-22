@@ -9,7 +9,7 @@ interface HeadingProps {
   bgColor?: string;
 }
 
-const Heading: React.FC<HeadingProps> = ({
+export const Heading: React.FC<HeadingProps> = ({
   title,
   sub,
   icon: Icon,
@@ -28,5 +28,3 @@ const Heading: React.FC<HeadingProps> = ({
     </div>
   );
 };
-
-export default Heading;
