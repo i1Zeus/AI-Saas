@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { MessageSquare } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChatCompletionRequestMessage } from "openai";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 import { cn } from "@/lib/utils";
 import { Heading } from "@/components/heading";
@@ -24,6 +25,7 @@ import { formSchema } from "./constants";
 
 const ConversationPage = () => {
   const router = useRouter();
+  const proModal = useProModal();
   const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -50,8 +52,9 @@ const ConversationPage = () => {
 
       form.reset();
     } catch (error: any) {
-      console.log(error);
-      // TODO:  Open Pro
+      if (error?.response?.status === 403) {
+        proModal.onOpen();
+      }
     } finally {
       router.refresh();
     }
