@@ -15,13 +15,9 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { prompt } = body;
 
-    if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
+    if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
-    if (!prompt) {
-      return new NextResponse("Prompt is required", { status: 400 });
-    }
+    if (!prompt) return new NextResponse("Prompt is required", { status: 400 });
 
     // const freeTrial = await checkApiLimit();
     // const isPro = await checkSubscription();
