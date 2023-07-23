@@ -2,7 +2,7 @@ import Replicate from "replicate";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
-import { increaseApiLimit, isApiLimitReached } from "@/lib/api-limit";
+import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 
 const replicate = new Replicate({
@@ -19,7 +19,7 @@ export async function POST(req: Request) {
 
     if (!prompt) return new NextResponse("Prompt is required", { status: 400 });
 
-    const freeTrial = await isApiLimitReached();
+    const freeTrial = await checkApiLimit();
     const isPro = await checkSubscription();
 
     if (!freeTrial && !isPro)
@@ -37,7 +37,7 @@ export async function POST(req: Request) {
       }
     );
 
-    if (!isPro) await increaseApiLimit();
+    if (!isPro) await incrementApiLimit();
 
     return NextResponse.json(response);
   } catch (error) {
