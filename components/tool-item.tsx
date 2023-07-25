@@ -1,19 +1,34 @@
+"use client";
+
 import { tools as useTools } from "@/constants";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Card } from "./ui/card";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-export const ToolItem = () => {
+interface ToolItemProps {
+  modal: boolean;
+}
+
+export const ToolItem = ({ modal }: ToolItemProps) => {
   const router = useRouter();
   const tools = useTools;
+  const redirect = (href: string) => {
+    if (modal) return;
+    router.push(href);
+  };
   return (
     <>
       {tools.map((tool) => (
         <Card
-          onClick={() => router.push(tool.href)}
+          onClick={() => redirect(tool.href)}
           key={tool.href}
-          className="p-4 border-black/54 flex items-center justify-between hover:drop-shadow-[-3px_3px_1px_rgb(168_178_188/_0.3)] transition cursor-pointer group"
+          className={cn(
+            "p-4 border-black/54 flex items-center justify-between group",
+            modal
+              ? "cursor-auto"
+              : "hover:drop-shadow-[-3px_3px_1px_rgb(168_178_188/_0.3)] transition cursor-pointer"
+          )}
         >
           <div className="flex items-center gap-x-4">
             <div className={cn("p-2 w-fit rounded-md", tool.bgColor)}>
@@ -23,7 +38,11 @@ export const ToolItem = () => {
               {tool.label.charAt(0).toUpperCase() + tool.label.slice(1)}
             </div>
           </div>
-          <ArrowRight className="w-6 h-6 text-black/54 mr-2 group-hover:mr-0" />
+          {modal ? (
+            <Check className="w-6 h-6 text-primary mr-2" />
+          ) : (
+            <ArrowRight className="w-6 h-6 text-black/54 mr-2 group-hover:mr-0" />
+          )}
         </Card>
       ))}
     </>
