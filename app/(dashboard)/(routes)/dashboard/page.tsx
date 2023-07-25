@@ -6,6 +6,7 @@ import { tools } from "@/constants";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
+import { ToolItem } from "@/components/tool-item";
 
 const DashboardPage = () => {
   const router = useRouter();
@@ -22,7 +23,7 @@ const DashboardPage = () => {
         </p>
       </div>
       <div className="px-4 md:px-20 lg:px-32 space-y-4">
-        {tools.map((tool) => (
+        {/* {tools.map((tool) => (
           <Card
             onClick={() => router.push(tool.href)}
             key={tool.href}
@@ -38,7 +39,8 @@ const DashboardPage = () => {
             </div>
             <ArrowRight className="w-6 h-6 text-black/54 mr-2 group-hover:mr-0" />
           </Card>
-        ))}
+        ))} */}
+        <ToolItem />
       </div>
     </div>
   );
