@@ -10,7 +10,7 @@ interface ToolItemProps {
   modal: boolean;
 }
 
-export const ToolItem = ({ modal }: ToolItemProps) => {
+export const ToolItems = ({ modal }: ToolItemProps) => {
   const router = useRouter();
   const tools = useTools;
   const redirect = (href: string) => {
