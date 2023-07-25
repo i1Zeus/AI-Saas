@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import { ToolItem } from "@/components/tool-items";
+import { ToolItems } from "@/components/tool-items";
 
 const DashboardPage = () => {
   const router = useRouter();
@@ -19,7 +19,7 @@ const DashboardPage = () => {
         </p>
       </div>
       <div className="px-4 md:px-20 lg:px-32 space-y-4">
-        <ToolItem modal={false} />
+        <ToolItems modal={false} />
       </div>
     </div>
   );
