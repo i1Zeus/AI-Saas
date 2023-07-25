@@ -1,6 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "./ui/avatar";
 
 const testimonials = [
   {
@@ -22,8 +23,8 @@ const testimonials = [
     description: "Been using it for a while now and I love it.",
   },
   {
-    name: "Abdurrahman AlGhanmi",
-    avatar: "AG",
+    name: "Abdullah Ahmed",
+    avatar: "AA",
     title: "Software Engineer",
     description: "Glad this tool exists because of my friend Hussein.",
   },
@@ -43,6 +44,11 @@ export const LandingContent = () => {
           >
             <CardHeader>
               <CardTitle className="flex items-center gap-x-2">
+                <Avatar className="w-12 h-12">
+                  <AvatarFallback className="bg-[#111827] text-base">
+                    {item.avatar}
+                  </AvatarFallback>
+                </Avatar>
                 <div>
                   <p className="text-lg">{item.name}</p>
                   <p className="text-zinc-400 text-sm">{item.title}</p>
