@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import { ToolItem } from "@/components/tool-item";
+import { ToolItem } from "@/components/tool-items";
 
 const DashboardPage = () => {
   const router = useRouter();

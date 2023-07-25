@@ -16,10 +16,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useProModal } from "@/hooks/use-pro-modal";
-import { tools } from "@/constants";
-import { Card } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
-import { ToolItem } from "./tool-item";
+import { ToolItems } from "./tool-items";
 
 export const ProModal = () => {
   const proModal = useProModal();
@@ -51,7 +48,7 @@ export const ProModal = () => {
             </div>
           </DialogTitle>
           <DialogDescription className="text-center pt-2 space-y-2 text-zinc-900 font-medium">
-            <ToolItem modal />
+            <ToolItems modal />
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>

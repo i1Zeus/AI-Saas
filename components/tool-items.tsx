@@ -6,11 +6,11 @@ import { Card } from "./ui/card";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-interface ToolItemProps {
+interface ToolItemsProps {
   modal: boolean;
 }
 
-export const ToolItems = ({ modal }: ToolItemProps) => {
+export const ToolItems = ({ modal }: ToolItemsProps) => {
   const router = useRouter();
   const tools = useTools;
   const redirect = (href: string) => {
