@@ -28,15 +28,22 @@ export const ModeToggle = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuGroup title="Main Modes">
-          <DropdownMenuLabel>Themes</DropdownMenuLabel>
-          <DropdownMenuItem onClick={() => setTheme("light")}>
-            Light
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setTheme("dark")}>
-            Dark
-          </DropdownMenuItem>
-        </DropdownMenuGroup>
+        <DropdownMenuLabel>Themes</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          className="flex justify-between items-center gap-x-4"
+          onClick={() => setTheme("light")}
+        >
+          Light
+          <Sun className="h-[1.2rem] w-[1.2rem]" />
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className="flex justify-between items-center gap-x-4"
+          onClick={() => setTheme("dark")}
+        >
+          Dark
+          <Moon className="h-[1.2rem] w-[1.2rem]" />
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => setTheme("system")}>
           System
