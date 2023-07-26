@@ -3,7 +3,7 @@
 import * as z from "zod";
 import axios from "axios";
 import { useState } from "react";
-import { Code } from "lucide-react";
+import { Code, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/navigation";
@@ -108,7 +108,7 @@ const CodePage = () => {
               className="col-span-12 lg:col-span-2 w-full"
               disabled={isLoading}
             >
-              {isLoading ? "Generating..." : "Generate"}
+              {isLoading ? <Loader2 className="animate-spin" /> : "Generate"}
             </Button>
           </form>
         </Form>

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import ReactMarkdown from "react-markdown";
 import { useRouter } from "next/navigation";
-import { MessageSquare } from "lucide-react";
+import { Loader2, MessageSquare } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChatCompletionRequestMessage } from "openai";
 import { useProModal } from "@/hooks/use-pro-modal";
@@ -108,7 +108,7 @@ const ConversationPage = () => {
               className="col-span-12 lg:col-span-2 w-full"
               disabled={isLoading}
             >
-              {isLoading ? "Generating..." : "Generate"}
+              {isLoading ? <Loader2 className="animate-spin" /> : "Generate"}
             </Button>
           </form>
         </Form>

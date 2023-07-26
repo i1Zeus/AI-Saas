@@ -6,7 +6,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { Video } from "lucide-react";
+import { Loader2, Video } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { Heading } from "@/components/heading";
@@ -99,7 +99,7 @@ const VideoPage = () => {
               disabled={isLoading}
               size="icon"
             >
-              Generate
+              {isLoading ? <Loader2 className="animate-spin" /> : "Generate"}{" "}
             </Button>
           </form>
         </Form>

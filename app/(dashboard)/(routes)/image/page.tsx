@@ -5,7 +5,7 @@ import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Download, ImageIcon } from "lucide-react";
+import { Download, ImageIcon, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -165,7 +165,7 @@ const ImagePage = () => {
               disabled={isLoading}
               size="icon"
             >
-              Generate
+              {isLoading ? <Loader2 className="animate-spin" /> : "Generate"}
             </Button>
           </form>
         </Form>

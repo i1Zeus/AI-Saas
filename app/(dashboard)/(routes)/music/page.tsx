@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { Music, Send } from "lucide-react";
+import { Loader2, Music, Send } from "lucide-react";
 
 import { Heading } from "@/components/heading";
 import { Button } from "@/components/ui/button";
@@ -100,7 +100,7 @@ const MusicPage = () => {
               disabled={isLoading}
               size="icon"
             >
-              Generate
+              {isLoading ? <Loader2 className="animate-spin" /> : "Generate"}
             </Button>
           </form>
         </Form>
