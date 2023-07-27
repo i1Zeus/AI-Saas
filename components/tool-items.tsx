@@ -27,7 +27,7 @@ export const ToolItems = ({ modal }: ToolItemsProps) => {
             "p-4 border-black/54 flex items-center justify-between group",
             modal
               ? "cursor-auto"
-              : "hover:drop-shadow-[-5px_5px_3px_rgba(0,0,0,0.05)] transition cursor-pointer"
+              : "hover:drop-shadow-[-5px_5px_3px_rgba(120_99_254/0.1)] transition cursor-pointer"
           )}
         >
           <div className="flex items-center gap-x-4">
