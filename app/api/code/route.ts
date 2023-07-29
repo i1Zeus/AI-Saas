@@ -14,7 +14,7 @@ const openai = new OpenAIApi(configuration);
 const instructionMessage: ChatCompletionRequestMessage = {
   role: "system",
   content:
-    "Generate Code. You are a code generator. you are given a task to generate code for a given problem statement. You must only answer in markdown code snippets. Use code comments to explain the code.",
+    "Act like a software engineer, You are a code generator. you are given a task to generate code for a given problem statement. You must only answer in markdown code snippets. Use code comments to explain the code.",
 };
 
 export async function POST(req: Request) {
